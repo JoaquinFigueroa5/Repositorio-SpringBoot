@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.joaquinfigueroa.webapp.biblioteca.model.Categoria;
@@ -27,13 +28,13 @@ public class CategoriaController {
     @Autowired
     CategoriaService categoriaService;
 
-    @GetMapping("/")
+    @GetMapping("/categorias")
     public List<Categoria> listarCategorias(){
         return categoriaService.listarCategoria();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Categoria> buscarCategoriaPorId(@PathVariable Long id){
+    @GetMapping("/categoria")
+    public ResponseEntity<Categoria> buscarCategoriaPorId(@RequestParam Long id){
         try {
             return ResponseEntity.ok(categoriaService.buscarCategoriaPorId(id));
         } catch (Exception e) {
@@ -41,7 +42,7 @@ public class CategoriaController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("/categoria")
     public ResponseEntity<Map<String, Boolean>> agregarCategoria(@RequestBody Categoria categoria){
         Map<String, Boolean> response = new HashMap<>();
         try {
@@ -54,8 +55,8 @@ public class CategoriaController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Map<String, String>> editarCategoria(@PathVariable Long id, @RequestBody Categoria categoriaNueva){
+    @PutMapping("/categoria")
+    public ResponseEntity<Map<String, String>> editarCategoria(@RequestParam Long id, @RequestBody Categoria categoriaNueva){
         Map<String, String> response = new HashMap<>();
         try {
             Categoria categoria = categoriaService.buscarCategoriaPorId(id);
@@ -69,8 +70,8 @@ public class CategoriaController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> eliminarCategoria(@PathVariable Long id){
+    @DeleteMapping("/categoria")
+    public ResponseEntity<Map<String, String>> eliminarCategoria(@RequestParam Long id){
         Map<String, String> response = new HashMap<>();
         try {
             Categoria categoria = categoriaService.buscarCategoriaPorId(id);
