@@ -45,9 +45,14 @@ public class CategoriaController {
     public ResponseEntity<Map<String, Boolean>> agregarCategoria(@RequestBody Categoria categoria){
         Map<String, Boolean> response = new HashMap<>();
         try {
-            categoriaService.guardarCategoria(categoria);
-            response.put("Se agrego con exito", Boolean.TRUE);
-            return ResponseEntity.ok(response);
+            if (categoriaService.guardarCategoria(categoria)) {
+                response.put("Se agrego con exito", Boolean.TRUE);
+                return ResponseEntity.ok(response);
+            }else{
+                response.put("No se pudo agregar", Boolean.FALSE);
+                return ResponseEntity.badRequest().body(response);
+            }
+            
         } catch (Exception e) {
             response.put("No se pudo agregar", Boolean.FALSE);
             return ResponseEntity.badRequest().body(response);

@@ -49,11 +49,11 @@ public class EmpleadoController {
     public ResponseEntity<Map<String, String>> agregarEmpleado(@RequestBody Empleado empleado){
         Map<String, String> response = new HashMap<>();
         try {
-            if(empleadoService.guardarEmpleado(empleado);){
+            if(empleadoService.guardarEmpleado(empleado)){
                 response.put("Message", "Empleado creado con exito!");
                 return ResponseEntity.ok(response);
             }else{
-                response.put("message", "Dpi duplicado!");
+                response.put("message", "El empleado no se registro por DPI duplicado!");
                 return ResponseEntity.badRequest().body(response);
             }
         } catch (Exception e) {
@@ -73,9 +73,14 @@ public class EmpleadoController {
             empleado.setTelefono(empleadoNuevo.getTelefono());
             empleado.setDireccion(empleadoNuevo.getDireccion());
             empleado.setDpi(empleadoNuevo.getDpi());
-            empleadoService.guardarEmpleado(empleado);
-            response.put("Message", "El empleado se ha editado con exito!");
-            return ResponseEntity.ok(response);
+            if (empleadoService.guardarEmpleado(empleado)) {
+                response.put("Message", "El empleado se ha editado con exito!");
+                return ResponseEntity.ok(response);
+            }else{
+                response.put("message", "el empleado no se pudo editar!");
+                return ResponseEntity.badRequest().body(response);
+            }
+            
         } catch (Exception e) {
             response.put("message", "el empleado no se pudo editar!");
             return ResponseEntity.badRequest().body(response);

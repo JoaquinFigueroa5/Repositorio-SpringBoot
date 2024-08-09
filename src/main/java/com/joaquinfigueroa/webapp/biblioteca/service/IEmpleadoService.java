@@ -13,5 +13,5 @@ public interface IEmpleadoService {
 
     public void eliminarEmpleado(Empleado empleado);
 
-    public Boolean verificarDpiDuplicado(Empleado empleadoNuevo):
+    public Boolean verificarDpiDuplicado(Empleado empleadoNuevo);
 }
