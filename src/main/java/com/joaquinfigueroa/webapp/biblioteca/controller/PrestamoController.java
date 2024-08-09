@@ -60,7 +60,7 @@ public class PrestamoController {
     }
     
     @PutMapping("/prestamo")
-    public ResponseEntity<Map<String, String>> editarPrestamo(@RequestBody Long id, @RequestBody Prestamo prestamoNuevo){
+    public ResponseEntity<Map<String, String>> editarPrestamo(@RequestParam Long id, @RequestBody Prestamo prestamoNuevo){
         Map<String, String> response = new HashMap<>();
         try {
             Prestamo prestamo = prestamoService.buscarPrestamoPorId(id);
@@ -80,7 +80,7 @@ public class PrestamoController {
     }
 
     @DeleteMapping("/prestamo")
-    public ResponseEntity<Map<String, String>> eliminarPrestamo(@RequestBody Long id){
+    public ResponseEntity<Map<String, String>> eliminarPrestamo(@RequestParam Long id){
         Map<String, String> response = new HashMap<>();
         try {
             Prestamo prestamo = prestamoService.buscarPrestamoPorId(id);

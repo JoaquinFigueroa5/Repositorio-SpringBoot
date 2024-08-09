@@ -64,7 +64,7 @@ public class EmpleadoController {
     }
 
     @PutMapping("/empleado")
-    public ResponseEntity<Map<String, String>> editarEmpleado(@RequestBody Long id, @RequestBody Empleado empleadoNuevo){
+    public ResponseEntity<Map<String, String>> editarEmpleado(@RequestParam Long id, @RequestBody Empleado empleadoNuevo){
         Map<String, String> response = new HashMap<>();
         try {
             Empleado empleado = empleadoService.buscarEmpleado(id);
@@ -88,7 +88,7 @@ public class EmpleadoController {
     }
 
     @DeleteMapping("/empleado")
-    public ResponseEntity<Map<String, String>> eliminarEmpleado(@RequestBody Long id){
+    public ResponseEntity<Map<String, String>> eliminarEmpleado(@RequestParam Long id){
         Map<String, String> response = new HashMap<>();
         try {
             Empleado empleado = empleadoService.buscarEmpleado(id);
