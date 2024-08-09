@@ -12,4 +12,6 @@ public interface IPrestamoService {
     public Prestamo guardarPrestamo(Prestamo prestamo);
 
     public void eliminarPrestamo(Prestamo prestamo);
+
+    public Boolean verificarPrestamoActivo(Prestamo prestamoActivo);
 }

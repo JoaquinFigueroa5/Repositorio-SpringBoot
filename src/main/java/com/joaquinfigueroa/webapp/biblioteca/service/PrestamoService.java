@@ -34,4 +34,10 @@ public class PrestamoService implements IPrestamoService {
         prestamoRepository.delete(prestamo);
     }
 
+    @Override
+    public Boolean verificarPrestamoActivo(Prestamo prestamoActivo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'verificarPrestamoActivo'");
+    }
+
 }
