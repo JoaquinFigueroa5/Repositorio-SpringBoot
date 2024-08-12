@@ -27,13 +27,13 @@ public class PrestamoService implements IPrestamoService {
 
     @Override
     public Boolean guardarPrestamo(Prestamo prestamo) {
-        if(!verificarPrestamoActivo(prestamo)){
+    for (Libro libro : prestamo.getLibros()) {
+        if(!verificarPrestamoActivo(prestamo) || !verificarLibroDisponible(libro)){
             prestamoRepository.save(prestamo);
             return true;
-        }else{
-            return false;
-        }
-        
+            }
+        }        
+        return false;
     }
 
     @Override
@@ -51,6 +51,15 @@ public class PrestamoService implements IPrestamoService {
             }
         }
 
+        return flag;
+    }
+
+    @Override
+    public Boolean verificarLibroDisponible(Libro libroNuevo){
+        Boolean flag = false;
+        if(libroNuevo.getDisponibilidad() == false){
+            flag = true;
+        }
         return flag;
     }
 

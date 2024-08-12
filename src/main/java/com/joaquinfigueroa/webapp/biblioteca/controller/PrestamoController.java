@@ -53,14 +53,13 @@ public class PrestamoController {
                 response.put("Message", "Prestamo creado con exito!");
                 return ResponseEntity.ok(response);
             }else{
-                response.put("message", "Error");
                 response.put("err", "Ya hay un prestamo activo en este momento!");
                 return ResponseEntity.badRequest().body(response);
             }
         } catch (Exception e) {
             response.put("message", "Error");
             response.put("err", "hubo un error al crear el prestamo!");
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body(response);
         }
     }
     
@@ -97,7 +96,5 @@ public class PrestamoController {
             return ResponseEntity.badRequest().body(response);
         }
     }
-
-
 
 }

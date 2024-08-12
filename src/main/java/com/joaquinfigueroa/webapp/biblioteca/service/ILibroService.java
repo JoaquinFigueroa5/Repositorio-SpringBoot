@@ -13,6 +13,4 @@ public interface ILibroService {
 
     public void eilimnaLibro(Libro libro);
     
-    public Boolean verificarLibroDisponible(Libro libro);
-
 }
