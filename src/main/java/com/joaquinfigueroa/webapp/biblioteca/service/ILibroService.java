@@ -12,4 +12,7 @@ public interface ILibroService {
     public Libro buscarLibro(Long id);
 
     public void eilimnaLibro(Libro libro);
+    
+    public Boolean verificarLibroDisponible(Libro libro);
+
 }

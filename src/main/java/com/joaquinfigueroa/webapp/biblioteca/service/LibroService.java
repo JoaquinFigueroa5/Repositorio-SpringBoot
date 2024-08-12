@@ -34,4 +34,19 @@ public class LibroService implements ILibroService{
         libroRepository.delete(libro);
     }
 
+    @Override
+    public Boolean verificarLibroDisponible(Libro libroNuevo) {
+        List<Libro> libros = listarLibros();
+        Boolean flag = false;
+        Boolean comodin = false;
+        for (Libro libro : libros) {
+            if((libroNuevo.getDisponibilidad().equals(libro.getDisponibilidad())) == comodin){
+                flag = true;
+            }
+        }
+
+        return flag;
+    }
+    
+
 }
