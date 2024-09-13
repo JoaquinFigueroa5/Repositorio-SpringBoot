@@ -30,7 +30,7 @@ import lombok.Setter;
 public class librosFXController implements Initializable{
 
     @FXML
-    TextField tfId, tfISBN, tfNombre, tfAutor, tfEditorial, tfNoEstanteria, tfCluster;
+    TextField tfId, tfISBN, tfNombre, tfAutor, tfEditorial, tfNoEstanteria, tfCluster, tfBuscar;
 
     @FXML
     TextArea taSinopsis;
@@ -39,7 +39,7 @@ public class librosFXController implements Initializable{
     ComboBox cmbDisponibilidad, cmbCategoria;
 
     @FXML
-    Button btnGuardar, btnEliminar, btnLimpiar, btnRegresar;
+    Button btnGuardar, btnEliminar, btnLimpiar, btnRegresar, btnBuscar;
 
     @FXML 
     TableView tblLibros;
@@ -76,6 +76,8 @@ public class librosFXController implements Initializable{
             stage.indexView();
         }else if(event.getSource() == btnEliminar){
             eliminarLibro();
+        }else if(event.getSource() == btnBuscar){
+            buscarLibro();
         }
     }
 
@@ -168,5 +170,30 @@ public class librosFXController implements Initializable{
         Libro libro = libroService.buscarLibro(Long.parseLong(tfId.getText()));
         libroService.eilimnaLibro(libro);
         cargarDatos();
+    }
+
+    public void buscarLibro() {
+        try {
+            if (tfBuscar.getText().isEmpty()) {
+                cargarDatos();
+                return;
+            }
+            Long id = Long.parseLong(tfBuscar.getText());
+            Libro libro = libroService.buscarLibro(id);
+            if (libro != null) {
+
+                ObservableList<Libro> libros = FXCollections.observableArrayList(libro);
+                tblLibros.setItems(libros);
+            } else {
+                LimpiarFormEditar();
+                tblLibros.setItems(FXCollections.observableArrayList());
+            }
+        } catch (NumberFormatException e) {
+            LimpiarFormEditar();
+            tblLibros.setItems(FXCollections.observableArrayList());
+        } catch (Exception e) {
+            LimpiarFormEditar();
+            tblLibros.setItems(FXCollections.observableArrayList());
+        }
     }
 }

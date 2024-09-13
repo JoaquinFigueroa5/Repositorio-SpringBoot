@@ -26,10 +26,10 @@ import lombok.Setter;
 public class categoriasFXController implements Initializable{
 
     @FXML
-    TextField tfId, tfNombre;
+    TextField tfId, tfNombre, tfBuscar;
 
     @FXML
-    Button btnGuardar, btnLimpiar, btnRegresar, btnEliminar;
+    Button btnGuardar, btnLimpiar, btnRegresar, btnEliminar, btnBuscar;
 
     @FXML
     TableView tblCategoria;
@@ -61,6 +61,8 @@ public class categoriasFXController implements Initializable{
             stage.indexView();
         }else if(event.getSource() == btnEliminar){
             eliminarCategoria();
+        }else if(event.getSource() == btnBuscar){
+            buscarCategoria();
         }
     }
 
@@ -106,4 +108,33 @@ public class categoriasFXController implements Initializable{
         categoriaService.eliminarCategoria(categoria);
         cargarDatos();
     }
+
+    public void buscarCategoria() {
+        try {
+            if (tfBuscar.getText().isEmpty()) {
+                cargarDatos();
+                return;
+            }
+            Long id = Long.parseLong(tfBuscar.getText());
+            Categoria categoria = categoriaService.buscarCategoriaPorId(id);
+            if (categoria != null) {
+                tfId.setText(Long.toString(categoria.getId()));
+                tfNombre.setText(categoria.getNombreCategoria());
+                ObservableList<Categoria> categoriasEncontradas = FXCollections.observableArrayList(categoria);
+                tblCategoria.setItems(categoriasEncontradas);
+            } else {
+                LimpiarFormEditar();
+                tblCategoria.setItems(FXCollections.observableArrayList());
+            }
+        } catch (NumberFormatException e) {
+            LimpiarFormEditar();
+            tblCategoria.setItems(FXCollections.observableArrayList());
+        } catch (Exception e) {
+            LimpiarFormEditar();
+            tblCategoria.setItems(FXCollections.observableArrayList());
+        }
+    }
+    
+    
+    
 }

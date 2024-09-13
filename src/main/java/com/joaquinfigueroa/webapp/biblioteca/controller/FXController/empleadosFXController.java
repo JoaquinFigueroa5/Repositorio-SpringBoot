@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.joaquinfigueroa.webapp.biblioteca.model.Cliente;
 import com.joaquinfigueroa.webapp.biblioteca.model.Empleado;
 import com.joaquinfigueroa.webapp.biblioteca.service.EmpleadoService;
 import com.joaquinfigueroa.webapp.biblioteca.system.Main;
@@ -26,10 +27,10 @@ import lombok.Setter;
 public class empleadosFXController implements Initializable{
 
     @FXML
-    TextField tfId, tfNombre, tfApellido, tfTelefono, tfDireccion, tfDPI;
+    TextField tfId, tfNombre, tfApellido, tfTelefono, tfDireccion, tfDPI, tfBuscar;
 
     @FXML
-    Button btnGuardar, btnEliminar, btnLimpiar, btnRegresar;
+    Button btnGuardar, btnEliminar, btnLimpiar, btnRegresar, btnBuscar;
 
     @FXML
     TableView tblEmpleado;
@@ -61,6 +62,8 @@ public class empleadosFXController implements Initializable{
             stage.indexView();
         }else if(event.getSource() == btnEliminar){
             eliminarEmpleado();
+        }else if(event.getSource() == btnBuscar){
+            buscarEmpleado();
         }
     }
 
@@ -125,6 +128,31 @@ public class empleadosFXController implements Initializable{
         Empleado empleado = empleadoService.buscarEmpleado(Long.parseLong(tfId.getText()));
         empleadoService.eliminarEmpleado(empleado);
         cargarDatos();
+    }
+
+    public void buscarEmpleado() {
+        try {
+            if (tfBuscar.getText().isEmpty()) {
+                cargarDatos();
+                return;
+            }
+            Long id = Long.parseLong(tfBuscar.getText());
+            Empleado empleado = empleadoService.buscarEmpleado(id);
+            if (empleado != null) {
+
+                ObservableList<Empleado> empleados = FXCollections.observableArrayList(empleado);
+                tblEmpleado.setItems(empleados);
+            } else {
+                LimpiarFormEditar();
+                tblEmpleado.setItems(FXCollections.observableArrayList());
+            }
+        } catch (NumberFormatException e) {
+            LimpiarFormEditar();
+            tblEmpleado.setItems(FXCollections.observableArrayList());
+        } catch (Exception e) {
+            LimpiarFormEditar();
+            tblEmpleado.setItems(FXCollections.observableArrayList());
+        }
     }
 
 }

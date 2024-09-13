@@ -37,13 +37,13 @@ import lombok.Setter;
 public class prestamoFXController implements Initializable{
     
     @FXML
-    TextField tfId;
+    TextField tfId, tfBuscar;
 
     @FXML
     DatePicker dtPrestamo, dtDevolucion;
 
     @FXML
-    Button btnGuardar, btnEliminar, btnLimpiar, btnRegresar;
+    Button btnGuardar, btnEliminar, btnLimpiar, btnRegresar, btnBuscar;
 
     @FXML
     ComboBox cmbVigencia, cmbEmpleado, cmbCliente, cmbLibro;
@@ -91,6 +91,8 @@ public class prestamoFXController implements Initializable{
             stage.indexView();
         }else if(event.getSource() == btnEliminar){
             eliminarPrestamo();
+        }else if(event.getSource() == btnBuscar){
+            buscarPrestamo();
         }
     }
 
@@ -178,5 +180,30 @@ public class prestamoFXController implements Initializable{
         Prestamo prestamo = prestamoService.buscarPrestamoPorId(Long.parseLong(tfId.getText()));
         prestamoService.eliminarPrestamo(prestamo);
         cargarDatos();
+    }
+
+    public void buscarPrestamo() {
+        try {
+            if (tfBuscar.getText().isEmpty()) {
+                cargarDatos();
+                return;
+            }
+            Long id = Long.parseLong(tfBuscar.getText());
+            Prestamo prestamo = prestamoService.buscarPrestamoPorId(id);
+            if (prestamo != null) {
+
+                ObservableList<Prestamo> prestamos = FXCollections.observableArrayList(prestamo);
+                tblPrestamos.setItems(prestamos);
+            } else {
+                LimpiarFormEditar();
+                tblPrestamos.setItems(FXCollections.observableArrayList());
+            }
+        } catch (NumberFormatException e) {
+            LimpiarFormEditar();
+            tblPrestamos.setItems(FXCollections.observableArrayList());
+        } catch (Exception e) {
+            LimpiarFormEditar();
+            tblPrestamos.setItems(FXCollections.observableArrayList());
+        }
     }
 }

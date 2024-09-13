@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.joaquinfigueroa.webapp.biblioteca.model.Categoria;
 import com.joaquinfigueroa.webapp.biblioteca.model.Cliente;
 import com.joaquinfigueroa.webapp.biblioteca.service.ClienteService;
 import com.joaquinfigueroa.webapp.biblioteca.system.Main;
@@ -27,13 +28,13 @@ import lombok.Setter;
 public class clientesFXController implements Initializable{
 
     @FXML
-    TextField tfDPI, tfNombre, tfApellido, tfTelefono, tfNIT;
+    TextField tfDPI, tfNombre, tfApellido, tfTelefono, tfNIT, tfBuscar;
 
     @FXML
     TextArea taDireccion;
 
     @FXML
-    Button btnGuardar, btnLimpiar, btnEliminar, btnRegresar;
+    Button btnGuardar, btnLimpiar, btnEliminar, btnRegresar, btnBuscar;
 
     @FXML
     TableView tblClientes;
@@ -65,6 +66,8 @@ public class clientesFXController implements Initializable{
             stage.indexView();
         }else if(event.getSource() == btnEliminar){
             eliminarCliente();
+        }else if(event.getSource() == btnBuscar){
+            buscarCliente();
         }
     }
 
@@ -130,6 +133,31 @@ public class clientesFXController implements Initializable{
         Cliente cliente = clienteService.buscarClientePorId(Long.parseLong(tfDPI.getText()));
         clienteService.eliminarCliente(cliente);
         cargarDatos();
+    }
+
+    public void buscarCliente() {
+        try {
+            if (tfBuscar.getText().isEmpty()) {
+                cargarDatos();
+                return;
+            }
+            Long dpi = Long.parseLong(tfBuscar.getText());
+            Cliente cliente = clienteService.buscarClientePorId(dpi);
+            if (cliente != null) {
+
+                ObservableList<Cliente> clientes = FXCollections.observableArrayList(cliente);
+                tblClientes.setItems(clientes);
+            } else {
+                LimpiarFormEditar();
+                tblClientes.setItems(FXCollections.observableArrayList());
+            }
+        } catch (NumberFormatException e) {
+            LimpiarFormEditar();
+            tblClientes.setItems(FXCollections.observableArrayList());
+        } catch (Exception e) {
+            LimpiarFormEditar();
+            tblClientes.setItems(FXCollections.observableArrayList());
+        }
     }
 
 }

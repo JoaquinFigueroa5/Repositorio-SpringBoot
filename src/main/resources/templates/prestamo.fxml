@@ -57,5 +57,7 @@
             <Font name="Bauhaus 93" size="20.0" />
          </font>
       </Button>
+      <TextField fx:id="tfBuscar" layoutX="449.0" layoutY="29.0" prefHeight="25.0" prefWidth="251.0" promptText="Buscar prestamo por ID" />
+      <Button fx:id="btnBuscar" layoutX="716.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Buscar" />
    </children>
 </AnchorPane>
