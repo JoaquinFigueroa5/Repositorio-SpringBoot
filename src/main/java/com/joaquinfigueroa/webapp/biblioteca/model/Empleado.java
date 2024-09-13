@@ -25,4 +25,10 @@ public class Empleado {
     private String direccion;
     private String dpi;
 
+    @Override
+    public String toString() {
+        return nombre + " " + apellido;
+    }
+
+    
 }

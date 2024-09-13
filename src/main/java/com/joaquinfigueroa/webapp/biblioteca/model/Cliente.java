@@ -19,4 +19,11 @@ public class Cliente {
     private String telefono;
     private String direccion;
     private String nit;
+
+    @Override
+    public String toString() {
+        return nombre + " " + apellido;
+    }
+
+    
 }

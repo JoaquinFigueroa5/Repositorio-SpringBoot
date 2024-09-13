@@ -1,9 +1,12 @@
 package com.joaquinfigueroa.webapp.biblioteca.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,18 +25,20 @@ public class Prestamo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date fechaDePrestamo;
-    private Date fechaDeDevolucion;
+    private LocalDate fechaDePrestamo;
+    private LocalDate fechaDeDevolucion;
     private Boolean vigencia;
     @ManyToOne
     private Empleado empleado;
     @ManyToOne
     private Cliente cliente;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "prestamos_libros",
     joinColumns = @JoinColumn(name = "prestamo_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "libros_id", referencedColumnName = "id")
     )
     private List<Libro> libros; 
 
+    
+    
 }

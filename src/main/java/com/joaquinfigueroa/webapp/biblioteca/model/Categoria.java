@@ -21,4 +21,8 @@ public class Categoria {
     private Long id;
     private String nombreCategoria;
 
+    @Override
+    public String toString() {
+        return nombreCategoria;
+    }
 }

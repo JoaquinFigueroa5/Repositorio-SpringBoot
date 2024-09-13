@@ -29,5 +29,12 @@ public class Libro {
     private String cluster;
     @ManyToOne(fetch = FetchType.EAGER)
     private Categoria categoria;
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
     
 }

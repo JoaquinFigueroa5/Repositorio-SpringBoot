@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="1129.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.joaquinfigueroa.webapp.biblioteca.controller.FXController.indexController">
+   <children>
+      <ImageView fitHeight="686.0" fitWidth="1129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/MenuPrincipal%20(1).png" />
+         </image>
+      </ImageView>
+      <MenuBar prefHeight="25.0" prefWidth="1129.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Categoria">
+            <items>
+              <MenuItem fx:id="btnCategoria" mnemonicParsing="false" onAction="#handleButtonAction" text="AboutCategoria" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Cliente">
+            <items>
+              <MenuItem fx:id="btnCliente" mnemonicParsing="false" onAction="#handleButtonAction" text="AboutCliente" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Empleado">
+            <items>
+              <MenuItem fx:id="btnEmpleado" mnemonicParsing="false" onAction="#handleButtonAction" text="AboutEmpleado" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Libro">
+               <items>
+                  <MenuItem fx:id="btnLibro" mnemonicParsing="false" onAction="#handleButtonAction" text="AboutLibro" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Prestamo">
+               <items>
+                  <MenuItem fx:id="btnPrestamo" mnemonicParsing="false" onAction="#handleButtonAction" text="AboutPrestamo" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
